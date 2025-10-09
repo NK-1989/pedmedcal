@@ -1,4 +1,4 @@
-// script.js (最終確定版 - 全ロジックと最新データを統合)
+// script.js (最終確定版 - カテゴリ重複完全排除済み)
 
 document.addEventListener('DOMContentLoaded', function() {
     setEventListeners();
@@ -10,7 +10,7 @@ const MIN_WEIGHT = 1.5;
 const MAX_WEIGHT = 50.0;
 // ****
 
-// **** 薬剤データ定義 (最終確定データ - ニカルジピンと最新の範囲を含む) ****
+// **** 薬剤データ定義 (最終確定データ - ユーザー提出内容) ****
 const DRUG_DATA = [
     // 形式: { category, name, code, conc_mg_mL, target_dose, target_unit, start_dose, min_dose, max_dose, [stock_note] }
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -19,13 +19,13 @@ const DRUG_DATA = [
     { category: '心血管作動薬', name: 'ドブタミン0.3%シリンジ', code: 'DobutamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
     { category: '心血管作動薬', name: 'ドパミン100mg/5mL', code: 'DopamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
     { category: '心血管作動薬', name: 'イノバン0.3%シリンジ', code: 'DopamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
-    { category: '心血管作動薬', name: 'ノルアドレナリン1mg/mL', code: 'Noradrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 0.3 },
-    { category: '心血管作動薬', name: 'アドレナリン1mg/mL', code: 'Adrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.01, min_dose: 0.01, max_dose: 0.05 },
+    { category: '心血管作動薬', name: 'ノルアドレナリン1mg/mL', code: 'Noradrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 1.0 },
+    { category: '心血管作動薬', name: 'アドレナリン1mg/mL', code: 'Adrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 0.1 },
     { category: '心血管作動薬', name: 'ミルリノン10mg/10mL', code: 'Millinon', conc_mg_mL: 1.0, target_dose: 0.5, target_unit: 'ug/kg/min', start_dose: 0.5, min_dose: 0.25, max_dose: 1.0 },
     { category: '心血管作動薬', name: 'ニカルジピン', code: 'Nicardipine', conc_mg_mL: 1.0, target_dose: 1.0, target_unit: 'ug/kg/min', start_dose: 1.0, min_dose: 0.5, max_dose: 2.0 }, 
     { 
         category: '心血管作動薬', name: 'アルプロスタジルアルファデックス(PGE1-CD)', code: 'PGE1CD', 
-        conc_mg_mL: 0.004, target_dose: 50.0, target_unit: 'ng/kg/min',
+        conc_mg_mL: 0.02, target_dose: 50.0, target_unit: 'ng/kg/min',
         start_dose: 50.0, min_dose: 10.0, max_dose: 200.0,
         stock_note: '1Vを生食 1mL で溶解' 
     },
@@ -43,9 +43,9 @@ const DRUG_DATA = [
     { category: '鎮痛薬', name: '10kg未満：モルヒネ', code: 'Morphineu10', conc_mg_mL: 10.0, target_dose: 40.0, target_unit: 'ug/kg/hr', start_dose: 40.0, min_dose: 20.0, max_dose: 80.0 },
     
     // 筋弛緩薬
-    { category: '筋弛緩薬', name: '10kg未満：ロクロニウム', code: 'Rocuroniumu10', conc_mg_mL: 10.0, target_dose: 10.0, target_unit: 'ug/kg/min', start_dose: 10.0, min_dose: -, max_dose: 10.0 },
-    { category: '筋弛緩薬', name: '10-30kg：ロクロニウム', code: 'Rocuronium1030', conc_mg_mL: 10.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: -, max_dose: 10.0 },
-    { category: '筋弛緩薬', name: '30kg以上：ロクロニウム', code: 'Rocuroniumb30', conc_mg_mL: 10.0, target_dose: 3.0, target_unit: 'ug/kg/min', start_dose: 3.0, min_dose: -, max_dose: 10.0 },
+    { category: '筋弛緩薬', name: '10kg未満：ロクロニウム', code: 'Rocuroniumu10', conc_mg_mL: 10.0, target_dose: 10.0, target_unit: 'ug/kg/min', start_dose: 10.0, min_dose: 0, max_dose: 10.0 },
+    { category: '筋弛緩薬', name: '10-30kg：ロクロニウム', code: 'Rocuronium1030', conc_mg_mL: 10.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 0, max_dose: 10.0 },
+    { category: '筋弛緩薬', name: '30kg以上：ロクロニウム', code: 'Rocuroniumb30', conc_mg_mL: 10.0, target_dose: 3.0, target_unit: 'ug/kg/min', start_dose: 3.0, min_dose: 0, max_dose: 10.0 },
     
     // 利尿薬
     { category: '利尿薬', name: 'フロセミド', code: 'Furosemide', conc_mg_mL: 10.0, target_dose: 10.0, target_unit: 'mg/kg/day', start_dose: 10.0, min_dose: 5.0, max_dose: 10.0 }
@@ -83,8 +83,6 @@ function setEventListeners() {
         document.getElementById('calculateButton').addEventListener('click', calculateDilutionVolume);
         document.getElementById('categorySelect').addEventListener('change', populateDrugSelect);
         document.getElementById('drugSelect').addEventListener('change', updateFixedDoseDisplay);
-        // 体重入力時に自動で再計算をトリガーする (オプション)
-        // document.getElementById('weightKg').addEventListener('input', calculateDilutionVolume); 
     } catch (e) {
         console.error("Critical DOM Initialization Error: An ID was not found.", e);
     }
@@ -100,7 +98,7 @@ function initializeApp() {
     const categorySelect = document.getElementById('categorySelect');
     if (!categorySelect) return; 
 
-    // カテゴリリストの作成（重複排除）
+    // ★★★ 修正済みロジック: trim()で重複を完全に排除 ★★★
     const categories = [...new Set(DRUG_DATA.map(d => d.category.trim()))];
     categories.forEach(category => {
         const option = document.createElement('option');
@@ -121,10 +119,10 @@ function populateDrugSelect() {
     const drugSelect = document.getElementById('drugSelect');
     if (!categorySelect || !drugSelect) return;
 
-    const selectedCategory = categorySelect.value.trim(); 
+    const selectedCategory = categorySelect.value.trim(); // 選択カテゴリをtrim()
     drugSelect.innerHTML = ''; // リセット
 
-    const filteredDrugs = DRUG_DATA.filter(d => d.category.trim() === selectedCategory); 
+    const filteredDrugs = DRUG_DATA.filter(d => d.category.trim() === selectedCategory); // データ側をtrim()して比較
     
     filteredDrugs.forEach(drug => {
         const option = document.createElement('option');
@@ -183,21 +181,8 @@ function roundToEvenFirstDecimal(value) {
     const roundedValue = Math.round(value * 10) / 10;
     const firstDecimal = Math.round(roundedValue * 10) % 10;
     
-    // 1の位が奇数（例: 3.5, 4.7）の場合、切り上げ（例: 3.6, 4.8）
     if (firstDecimal % 2 !== 0) {
-        // Math.ceil(3.5 * 10) / 10 = 35 / 10 = 3.5
-        // Math.ceil(3.5 * 10 + 0.001) / 10 のように微調整が必要だが、
-        // 単純な偶数丸めロジックを採用
-        
-        // 5未満を切り上げると、結果が偶数になる保証がないため、
-        // 0.1単位で四捨五入した結果に対して偶数判定を行う。
-        
-        // ここでのロジックは「四捨五入した結果、小数点第1位が奇数なら切り上げ」
-        // (例: 3.3 -> 3.3, 3.4 -> 3.4, 3.5 -> 3.6, 3.6 -> 3.6)
-        // 厳密な偶数丸め（JIS丸め）とは異なるが、医療現場での慣用的な丸め方を再現
-        
-        // 0.1単位で切り上げ（例: 3.5を3.6へ）
-        return Math.ceil((value + 0.05) * 10) / 10;
+        return (Math.ceil((value + 0.05) * 10) / 10);
     }
     return roundedValue;
 }
@@ -229,7 +214,6 @@ function calculateDilutionVolume() {
     const drugVolumeLabel = document.getElementById('drugVolumeLabel'); 
     
     // 3. 必要な桁数の決定
-    // target_doseの小数点以下の桁数を取得し、誤差表示は+1桁にする
     const targetDecimals = drug ? getDecimalPlaces(drug.target_dose) : 0;
     const displayDecimals = targetDecimals + 1;
 
@@ -241,7 +225,6 @@ function calculateDilutionVolume() {
     errorRateOutput.textContent = '-- %';
     errorMessage.textContent = '';
     
-    // ラベルの更新
     const finalConcUnit = drug ? (drug.target_unit.includes('U') || drug.target_unit.includes('mU') ? 'U/mL' : 'mg/mL') : 'mg/mL';
     drugVolumeLabel.textContent = `必要な溶質 (${drug ? drug.name : '未選択'}, ${drug ? drug.conc_mg_mL : '--'} ${finalConcUnit}):`;
 
@@ -356,4 +339,3 @@ function calculateDilutionVolume() {
         errorMessage.textContent = '';
     }
 }
-
