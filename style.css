@@ -1,0 +1,162 @@
+/* style.css */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 450px;
+}
+
+/* --- 🚨 警告・免責事項のスタイル --- */
+.safety-alert {
+    border: 3px solid #e53935; /* 赤い太枠 */
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #ffebee; /* 薄い赤の背景 */
+    color: #b71c1c; /* 濃い赤の文字 */
+    font-size: 0.85em;
+}
+
+.safety-alert p {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+.safety-alert strong {
+    color: #e53935; /* 見出しを特に赤くする */
+    font-size: 1.1em;
+}
+/* -------------------------------- */
+
+h1 {
+    color: #1e88e5; /* 青系 */
+    text-align: center;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    text-align: left;
+    color: #1e88e5; /* 薬剤選択結果を見やすく */
+    margin-bottom: 15px;
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+h2 {
+    color: #333;
+    font-size: 1.2em;
+    border-left: 5px solid #1e88e5;
+    padding-left: 10px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+/* 入力グループ */
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+    font-size: 0.95em;
+}
+
+.input-group input[type="number"],
+.input-group select { /* selectも追加 */
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box; 
+    font-size: 1em;
+}
+
+/* ラジオボタンのグループ */
+.radio-group {
+    display: flex;
+    gap: 20px;
+    margin-top: 5px;
+}
+
+/* 計算ボタン */
+#calculateButton {
+    width: 100%;
+    padding: 12px;
+    background-color: #4caf50; /* 緑系で目立たせる */
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.2s;
+}
+
+#calculateButton:hover {
+    background-color: #43a047;
+}
+
+/* 結果表示 */
+.result-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 2px solid #ddd;
+}
+
+.output-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eee;
+}
+
+.output-label {
+    font-weight: normal;
+    margin: 0;
+}
+
+.output-value {
+    font-weight: bold;
+    margin: 0;
+}
+
+.main-result {
+    color: #d32f2f; /* 赤系で最も重要な結果を強調 */
+    font-size: 1.3em;
+    font-weight: 900;
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: #e53935; /* 赤字 */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.note {
+    font-size: 0.85em;
+    color: #555;
+    text-align: right;
+    margin: 5px 0;
+}

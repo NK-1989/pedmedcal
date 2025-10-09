@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小児持続重要薬剤計算</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        
+        <div class="safety-alert">
+            <p><strong>【重要な警告および免責事項】</strong></p>
+            <p>本アプリの計算結果はあくまで参考情報です。<strong>実際の投与に際しては、必ず医療従事者が手計算または他のシステムで再計算を行い、医師の指示と照合してください。</strong></p>
+            <p>本アプリの製作者は、本アプリの使用によって生じた一切の損害について実責任を負いません。</p>
+        </div>
+        
+        <h1>小児持続重要薬剤計算（石川県立中央病院ver）</h1>
+        
+        <div class="input-section">
+            <h2>患者体重</h2>
+            <div class="input-group">
+                <label for="weightKg">体重 (kg):</label>
+                <input type="number" id="weightKg" step="0.1" min="0.1" placeholder="例: 5.0">
+            </div>
+        </div>
+        
+        <div class="input-section">
+            <h2>薬剤選択</h2>
+            
+            <div class="input-group">
+                <label for="categorySelect">カテゴリ選択:</label>
+                <select id="categorySelect">
+                    </select>
+            </div>
+            
+            <div class="input-group">
+                <label for="drugSelect">薬剤名:</label>
+                <select id="drugSelect">
+                    </select>
+            </div>
+            
+            <p class="subtitle" id="drugTargetDisplay">目標: 1 mL/hr = --</p>
+        </div>
+
+        <div class="input-section">
+            <h2>最終総容量</h2>
+             <div class="input-group">
+                <label>総希釈量 (mL):</label>
+                <div class="radio-group">
+                    <input type="radio" id="vol30" name="totalVolume" value="30" checked>
+                    <label for="vol30">30 mL</label>
+                    
+                    <input type="radio" id="vol40" name="totalVolume" value="40">
+                    <label for="vol40">40 mL</label>
+                </div>
+            </div>
+        </div>
+
+        <button id="calculateButton">計算実行</button>
+        
+        <p id="errorMessage" class="error-message"></p>
+
+        <div class="result-section">
+            <h2>調剤量（小数点第1位・偶数丸め）</h2>
+            
+            <div class="output-group">
+                <p class="output-label" id="drugVolumeLabel">必要な溶質 ($\text{mL}$):</p>
+                <p id="drugVolumeMl" class="output-value main-result">-- mL</p>
+            </div>
+
+            <div class="output-group">
+                <p class="output-label">必要な溶媒 ($\text{mL}$):</p>
+                <p id="diluentVolumeMl" class="output-value main-result">-- mL</p>
+            </div>
+            
+            <hr>
+            
+            <h2>品質確認（1 mL/hr投与時）</h2>
+
+            <div class="output-group secondary">
+                <p class="output-label">真の投与速度:</p>
+                <p id="trueDoseOutput" class="output-value">--</p>
+            </div>
+
+            <div class="output-group secondary">
+                <p class="output-label">目標速度との誤差:</p>
+                <p id="errorRateOutput" class="output-value main-result">-- %</p>
+            </div>
+            
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
