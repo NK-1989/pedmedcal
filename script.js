@@ -15,40 +15,40 @@ const DRUG_DATA = [
     // 形式: { category, name, code, conc_mg_mL, target_dose, target_unit, start_dose, min_dose, max_dose, [stock_note] }
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // 心血管作動薬
-    { category: '心血管作動薬', name: 'ドブタミン100mg/5mL', code: 'DobutamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 20.0 },
-    { category: '心血管作動薬', name: 'ドブタミン0.3%シリンジ', code: 'DobutamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 20.0 },
-    { category: '心血管作動薬', name: 'ドパミン100mg/5mL', code: 'DopamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 20.0 },
-    { category: '心血管作動薬', name: 'イノバン0.3%シリンジ', code: 'DopamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 20.0 },
-    { category: '心血管作動薬', name: 'ノルアドレナリン1mg/mL', code: 'Noradrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 2.0 },
-    { category: '心血管作動薬', name: 'アドレナリン1mg/mL', code: 'Adrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 2.0 },
-    { category: '心血管作動薬', name: 'ミルリノン10mg/10mL', code: 'Millinon', conc_mg_mL: 1.0, target_dose: 0.5, target_unit: 'ug/kg/min', start_dose: 0.5, min_dose: 0.25, max_dose: 0.75 },
-    { category: '心血管作動薬', name: 'ニカルジピン', code: 'Nicardipine', conc_mg_mL: 1.0, target_dose: 1.0, target_unit: 'ug/kg/min', start_dose: 1.0, min_dose: 0.5, max_dose: 5.0 }, 
+    { category: '心血管作動薬', name: 'ドブタミン100mg/5mL', code: 'DobutamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
+    { category: '心血管作動薬', name: 'ドブタミン0.3%シリンジ', code: 'DobutamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
+    { category: '心血管作動薬', name: 'ドパミン100mg/5mL', code: 'DopamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
+    { category: '心血管作動薬', name: 'イノバン0.3%シリンジ', code: 'DopamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
+    { category: '心血管作動薬', name: 'ノルアドレナリン1mg/mL', code: 'Noradrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 0.3 },
+    { category: '心血管作動薬', name: 'アドレナリン1mg/mL', code: 'Adrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.01, min_dose: 0.01, max_dose: 0.05 },
+    { category: '心血管作動薬', name: 'ミルリノン10mg/10mL', code: 'Millinon', conc_mg_mL: 1.0, target_dose: 0.5, target_unit: 'ug/kg/min', start_dose: 0.5, min_dose: 0.25, max_dose: 1.0 },
+    { category: '心血管作動薬', name: 'ニカルジピン', code: 'Nicardipine', conc_mg_mL: 1.0, target_dose: 1.0, target_unit: 'ug/kg/min', start_dose: 1.0, min_dose: 0.5, max_dose: 2.0 }, 
     { 
         category: '心血管作動薬', name: 'アルプロスタジルアルファデックス(PGE1-CD)', code: 'PGE1CD', 
         conc_mg_mL: 0.004, target_dose: 50.0, target_unit: 'ng/kg/min',
-        start_dose: 50.0, min_dose: 10.0, max_dose: 100.0,
+        start_dose: 50.0, min_dose: 10.0, max_dose: 200.0,
         stock_note: '1Vを生食 1mL で溶解' 
     },
-    { category: '心血管作動薬', name: 'パルクス(Lipo-PGE1)', code: 'LipoPGE1', conc_mg_mL: 0.005, target_dose: 5.0, target_unit: 'ng/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 20.0 },
+    { category: '心血管作動薬', name: 'パルクス(Lipo-PGE1)', code: 'LipoPGE1', conc_mg_mL: 0.005, target_dose: 5.0, target_unit: 'ng/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
     { category: '心血管作動薬', name: 'ピトレシン20U', code: 'Vasopresin', conc_mg_mL: 20.0, target_dose: 0.4, target_unit: 'mU/kg/min', start_dose: 0.4, min_dose: 0.2, max_dose: 1.0 },
     
     // 鎮静薬
-    { category: '鎮静薬', name: '10kg以上：ミダゾラム', code: 'Midazolamb10', conc_mg_mL: 5.0, target_dose: 0.1, target_unit: 'mg/kg/hr', start_dose: 0.1, min_dose: 0.05, max_dose: 0.4 },
-    { category: '鎮静薬', name: '10kg未満：ミダゾラム', code: 'Midazolamu10', conc_mg_mL: 5.0, target_dose: 0.2, target_unit: 'mg/kg/hr', start_dose: 0.2, min_dose: 0.05, max_dose: 0.6 },
+    { category: '鎮静薬', name: '10kg以上：ミダゾラム', code: 'Midazolamb10', conc_mg_mL: 5.0, target_dose: 0.1, target_unit: 'mg/kg/hr', start_dose: 0.1, min_dose: 0.05, max_dose: 0.2 },
+    { category: '鎮静薬', name: '10kg未満：ミダゾラム', code: 'Midazolamu10', conc_mg_mL: 5.0, target_dose: 0.2, target_unit: 'mg/kg/hr', start_dose: 0.2, min_dose: 0.05, max_dose: 0.2 },
     
     // 鎮痛薬
-    { category: '鎮痛薬', name: '10kg以上：フェンタニル', code: 'Fentanylb10', conc_mg_mL: 0.05, target_dose: 1.0, target_unit: 'ug/kg/hr', start_dose: 1.0, min_dose: 0.5, max_dose: 2.5 },
-    { category: '鎮痛薬', name: '10kg未満：フェンタニル', code: 'Fentanylu10', conc_mg_mL: 0.05, target_dose: 2.0, target_unit: 'ug/kg/hr', start_dose: 2.0, min_dose: 1.0, max_dose: 5.0 },
+    { category: '鎮痛薬', name: '10kg以上：フェンタニル', code: 'Fentanylb10', conc_mg_mL: 0.05, target_dose: 1.0, target_unit: 'ug/kg/hr', start_dose: 1.0, min_dose: 0.5, max_dose: 2.0 },
+    { category: '鎮痛薬', name: '10kg未満：フェンタニル', code: 'Fentanylu10', conc_mg_mL: 0.05, target_dose: 2.0, target_unit: 'ug/kg/hr', start_dose: 2.0, min_dose: 1.0, max_dose: 2.0 },
     { category: '鎮痛薬', name: '10kg以上：モルヒネ', code: 'Morphineb10', conc_mg_mL: 10.0, target_dose: 20.0, target_unit: 'ug/kg/hr', start_dose: 20.0, min_dose: 10.0, max_dose: 80.0 },
-    { category: '鎮痛薬', name: '10kg未満：モルヒネ', code: 'Morphineu10', conc_mg_mL: 10.0, target_dose: 40.0, target_unit: 'ug/kg/hr', start_dose: 40.0, min_dose: 20.0, max_dose: 120.0 },
+    { category: '鎮痛薬', name: '10kg未満：モルヒネ', code: 'Morphineu10', conc_mg_mL: 10.0, target_dose: 40.0, target_unit: 'ug/kg/hr', start_dose: 40.0, min_dose: 20.0, max_dose: 80.0 },
     
     // 筋弛緩薬
-    { category: '筋弛緩薬', name: '10kg未満：ロクロニウム', code: 'Rocuroniumu10', conc_mg_mL: 10.0, target_dose: 10.0, target_unit: 'ug/kg/min', start_dose: 10.0, min_dose: 5.0, max_dose: 20.0 },
-    { category: '筋弛緩薬', name: '10-30kg：ロクロニウム', code: 'Rocuronium1030', conc_mg_mL: 10.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 3.0, max_dose: 10.0 },
-    { category: '筋弛緩薬', name: '30kg以上：ロクロニウム', code: 'Rocuroniumb30', conc_mg_mL: 10.0, target_dose: 3.0, target_unit: 'ug/kg/min', start_dose: 3.0, min_dose: 2.0, max_dose: 8.0 },
+    { category: '筋弛緩薬', name: '10kg未満：ロクロニウム', code: 'Rocuroniumu10', conc_mg_mL: 10.0, target_dose: 10.0, target_unit: 'ug/kg/min', start_dose: 10.0, min_dose: -, max_dose: 10.0 },
+    { category: '筋弛緩薬', name: '10-30kg：ロクロニウム', code: 'Rocuronium1030', conc_mg_mL: 10.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: -, max_dose: 10.0 },
+    { category: '筋弛緩薬', name: '30kg以上：ロクロニウム', code: 'Rocuroniumb30', conc_mg_mL: 10.0, target_dose: 3.0, target_unit: 'ug/kg/min', start_dose: 3.0, min_dose: -, max_dose: 10.0 },
     
     // 利尿薬
-    { category: '利尿薬', name: 'フロセミド', code: 'Furosemide', conc_mg_mL: 10.0, target_dose: 10.0, target_unit: 'mg/kg/day', start_dose: 10.0, min_dose: 5.0, max_dose: 20.0 }
+    { category: '利尿薬', name: 'フロセミド', code: 'Furosemide', conc_mg_mL: 10.0, target_dose: 10.0, target_unit: 'mg/kg/day', start_dose: 10.0, min_dose: 5.0, max_dose: 10.0 }
 ];
 
 // **** 単位換算設定 (変更なし) ****
@@ -356,3 +356,4 @@ function calculateDilutionVolume() {
         errorMessage.textContent = '';
     }
 }
+
