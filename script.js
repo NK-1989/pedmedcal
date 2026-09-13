@@ -1,10 +1,5 @@
 // script.js (最終確定版 - カテゴリ重複完全排除済み)
 
-document.addEventListener('DOMContentLoaded', function() {
-    setEventListeners();
-    initializeApp();
-});
-
 // **** 医療安全：体重範囲定数 ****
 const MIN_WEIGHT = 1.5;
 const MAX_WEIGHT = 50.0;
@@ -15,22 +10,30 @@ const DRUG_DATA = [
     // 形式: { category, name, code, conc_mg_mL, target_dose, target_unit, start_dose, min_dose, max_dose, [stock_note] }
     // ------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     // 心血管作動薬
-    { category: '心血管作動薬', name: 'ドブタミン100mg/5mL', code: 'DobutamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
-    { category: '心血管作動薬', name: 'ドブタミン0.3%シリンジ', code: 'DobutamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
-    { category: '心血管作動薬', name: 'ドパミン100mg/5mL', code: 'DopamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
-    { category: '心血管作動薬', name: 'イノバン0.3%シリンジ', code: 'DopamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
-    { category: '心血管作動薬', name: 'ノルアドレナリン1mg/mL', code: 'Noradrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 1.0 },
-    { category: '心血管作動薬', name: 'アドレナリン1mg/mL', code: 'Adrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 0.1 },
-    { category: '心血管作動薬', name: 'ミルリノン10mg/10mL', code: 'Millinon', conc_mg_mL: 1.0, target_dose: 0.5, target_unit: 'ug/kg/min', start_dose: 0.5, min_dose: 0.25, max_dose: 1.0 },
-    { category: '心血管作動薬', name: 'ニカルジピン', code: 'Nicardipine', conc_mg_mL: 1.0, target_dose: 1.0, target_unit: 'ug/kg/min', start_dose: 1.0, min_dose: 0.5, max_dose: 2.0 }, 
-    { 
-        category: '心血管作動薬', name: 'アルプロスタジルアルファデックス(PGE1-CD)', code: 'PGE1CD', 
+    { category: '心血管作動薬', name: 'ドブタミン100mg/5mL', code: 'DobutamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0,
+        standard_dose: '陽性変力薬として2.5〜20μg/kg/min(PFCCS 表6-3)。日本の心不全ガイドラインでも上限20μg/kg/minとされるが、実臨床では10μg/kg/min程度を上限の目安とする報告もある(小児救命救急・ICUピックアップ1 ショック)。5〜6μg/kg/minで効果不十分な場合は増量よりPDE III阻害薬併用を検討するとの記載あり。' },
+    { category: '心血管作動薬', name: 'ドブタミン0.3%シリンジ', code: 'DobutamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0,
+        standard_dose: '陽性変力薬として2.5〜20μg/kg/min(PFCCS 表6-3)。日本の心不全ガイドラインでも上限20μg/kg/minとされるが、実臨床では10μg/kg/min程度を上限の目安とする報告もある(小児救命救急・ICUピックアップ1 ショック)。5〜6μg/kg/minで効果不十分な場合は増量よりPDE III阻害薬併用を検討するとの記載あり。' },
+    { category: '心血管作動薬', name: 'ドパミン100mg/5mL', code: 'DopamineH', conc_mg_mL: 20.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0,
+        standard_dose: '陽性変力薬として2〜15μg/kg/min、昇圧薬として>12μg/kg/min(PFCCS 表6-3)。10μg/kg/min以上でα1受容体作用が優位となり血管収縮が生じる(小児救命救急・ICUピックアップ1 ショック)。' },
+    { category: '心血管作動薬', name: 'イノバン0.3%シリンジ', code: 'DopamineL', conc_mg_mL: 3.0, target_dose: 5.0, target_unit: 'ug/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0,
+        standard_dose: '陽性変力薬として2〜15μg/kg/min、昇圧薬として>12μg/kg/min(PFCCS 表6-3)。10μg/kg/min以上でα1受容体作用が優位となり血管収縮が生じる(小児救命救急・ICUピックアップ1 ショック)。' },
+    { category: '心血管作動薬', name: 'ノルアドレナリン1mg/mL', code: 'Noradrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 1.0,
+        standard_dose: '昇圧薬として0.05〜1μg/kg/min(PFCCS 表6-3)。0.03〜0.5μg/kg/minとする記載もある(小児救命救急・ICUピックアップ1 ショック 表2)。敗血症性ショックのwarm shockの第1選択薬。' },
+    { category: '心血管作動薬', name: 'アドレナリン1mg/mL', code: 'Adrenaline', conc_mg_mL: 1.0, target_dose: 0.05, target_unit: 'ug/kg/min', start_dose: 0.05, min_dose: 0.01, max_dose: 0.1,
+        standard_dose: '陽性変力薬として0.05〜0.5μg/kg/min、昇圧薬として0.1〜1μg/kg/min(PFCCS 表6-3)。初期投与量は通常0.05〜0.1μg/kg/minから開始し効果をみながら漸増。0.01〜0.05μg/kg/minの低用量ではβ2刺激による後負荷軽減効果も期待される(小児救命救急・ICUピックアップ1 ショック)。' },
+    { category: '心血管作動薬', name: 'ミルリノン10mg/10mL', code: 'Millinon', conc_mg_mL: 1.0, target_dose: 0.5, target_unit: 'ug/kg/min', start_dose: 0.5, min_dose: 0.25, max_dose: 1.0,
+        standard_dose: '0.25〜0.75μg/kg/min(PFCCS 表6-3)。0.3μg/kg/min超や肝・腎機能障害では遷延性低血圧のリスクが高まるため、ローディングは行わずPICU管理下での投与が推奨される。' },
+    { category: '心血管作動薬', name: 'ニカルジピン', code: 'Nicardipine', conc_mg_mL: 1.0, target_dose: 1.0, target_unit: 'ug/kg/min', start_dose: 1.0, min_dose: 0.5, max_dose: 2.0 },
+    {
+        category: '心血管作動薬', name: 'アルプロスタジルアルファデックス(PGE1-CD)', code: 'PGE1CD',
         conc_mg_mL: 0.02, target_dose: 50.0, target_unit: 'ng/kg/min',
         start_dose: 50.0, min_dose: 10.0, max_dose: 200.0,
-        stock_note: '1Vを生食 1mL で溶解' 
+        stock_note: '1Vを生食 1mL で溶解'
     },
     { category: '心血管作動薬', name: 'パルクス(Lipo-PGE1)', code: 'LipoPGE1', conc_mg_mL: 0.005, target_dose: 5.0, target_unit: 'ng/kg/min', start_dose: 5.0, min_dose: 2.0, max_dose: 10.0 },
-    { category: '心血管作動薬', name: 'ピトレシン20U', code: 'Vasopresin', conc_mg_mL: 20.0, target_dose: 0.4, target_unit: 'mU/kg/min', start_dose: 0.4, min_dose: 0.2, max_dose: 1.0 },
+    { category: '心血管作動薬', name: 'ピトレシン20U', code: 'Vasopresin', conc_mg_mL: 20.0, target_dose: 0.4, target_unit: 'mU/kg/min', start_dose: 0.4, min_dose: 0.2, max_dose: 1.0,
+        standard_dose: '昇圧薬として0.5mU/kg/min(=0.0005U/kg/min)から開始(PFCCS 表6-3)。成人標準投与量である0.03〜0.04U/min(体重50kg換算で約0.6〜0.8mU/kg/min)を超えないようにする。小児での確立した投与量はない。' },
     
     // 鎮静薬
     { category: '鎮静薬', name: '10kg以上：ミダゾラム', code: 'Midazolamb10', conc_mg_mL: 5.0, target_dose: 0.1, target_unit: 'mg/kg/hr', start_dose: 0.1, min_dose: 0.05, max_dose: 0.2 },
@@ -168,7 +171,12 @@ function updateFixedDoseDisplay() {
         if (drug.stock_note) {
             displayHtml += `<br><span style="color: #e53935; font-size: 0.9em;">(原液作成指示: ${drug.stock_note})</span>`;
         }
-        
+
+        // standard_doseが存在する場合、文献上の標準投与量の目安を追加表示
+        if (drug.standard_dose) {
+            displayHtml += `<br><span style="display:inline-block; margin-top:4px; color:#555; font-size:0.85em; font-weight:normal;">【標準投与量の目安（文献）】${drug.standard_dose}</span>`;
+        }
+
         displayElement.innerHTML = displayHtml;
     } else {
         displayElement.textContent = '目標: 1 mL/hr = 薬剤を選択してください';
